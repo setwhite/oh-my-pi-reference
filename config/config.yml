@@ -1,4 +1,4 @@
-lastChangelogVersion: 15.5.11
+lastChangelogVersion: 15.5.15
 modelRoles: 
   slow: opencode-go/deepseek-v4-pro:xhigh
   smol: opencode-go/deepseek-v4-flash:high
