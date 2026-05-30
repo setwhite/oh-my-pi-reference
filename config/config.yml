@@ -1,0 +1,58 @@
+lastChangelogVersion: 15.5.11
+modelRoles: 
+  slow: opencode-go/deepseek-v4-pro:xhigh
+  smol: opencode-go/deepseek-v4-flash:high
+  vision: opencode-go/kimi-k2.6:medium
+  default: opencode-go/deepseek-v4-pro:high
+  plan: opencode-go/deepseek-v4-pro:xhigh
+  designer: opencode-go/kimi-k2.6:xhigh
+  task: opencode-go/deepseek-v4-pro:high
+  commit: opencode-go/deepseek-v4-pro:high
+theme: 
+  dark: dark-monokai
+statusLine: 
+  separator: pipe
+task: 
+  showResolvedModelBadge: true
+  maxConcurrency: 16
+  isolation: 
+    mode: rcopy
+    merge: patch
+  simple: schema-free
+hideThinkingBlock: true
+followUpMode: one-at-a-time
+contextPromotion: 
+  enabled: false
+branchSummary: 
+  enabled: true
+tools: 
+  approvalMode: write
+collapseChangelog: true
+commands: 
+  enableClaudeUser: false
+  enableClaudeProject: false
+  enableOpencodeUser: false
+  enableOpencodeProject: false
+browser: 
+  headless: false
+  screenshotDir: ""
+compaction: 
+  handoffSaveToDisk: true
+  strategy: handoff
+inspect_image: 
+  enabled: true
+github: 
+  enabled: true
+display: 
+  shimmer: classic
+async: 
+  enabled: true
+mcp: 
+  discoveryMode: true
+providers: 
+  webSearch: auto
+  image: auto
+provider: 
+  appendOnlyContext: auto
+disabledExtensions: 
+  - context-file:user:CLAUDE.md

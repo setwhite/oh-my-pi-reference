@@ -1,27 +1,36 @@
-# Oh My Pi Settings Schema
+# Oh My Pi 参考知识库
 
-从 `settings-schema.ts` 提取的 Oh My Pi 完整设置项参考，按 UI 标签页归类。
+[Oh My Pi](https://github.com/can1357/oh-my-pi) 的个人安装、配置与设置项参考。
 
-## 分类
+## 目录结构
 
-| 分类 | 内容 |
-|---|---|
-| [Appearance](oh-my-pi-settings.md#appearance-外观) | 主题、图标、状态栏、图片渲染 |
-| [Model](oh-my-pi-settings.md#model-模型) | 推理深度、采样参数、重试策略 |
-| [Interaction](oh-my-pi-settings.md#interaction-交互) | 对话流、通知、语音输入、工具审批 |
-| [Context](oh-my-pi-settings.md#context-上下文) | 上下文压缩、分支摘要、TTSR |
-| [Memory](oh-my-pi-settings.md#memory-记忆) | 记忆后端（local / hindsight） |
-| [Editing](oh-my-pi-settings.md#editing-编辑) | 编辑工具、Read 工具、LSP、Bash 拦截器 |
-| [Tools](oh-my-pi-settings.md#tools-工具) | 工具审批策略、输出裁剪、Todo |
-| [Tasks](oh-my-pi-settings.md#tasks-任务) | 子代理并发、审批、环境变量 |
-| [Providers](oh-my-pi-settings.md#providers-提供商) | 模型提供商密钥与配置 |
-| [General / 无 UI](oh-my-pi-settings.md#general--无-ui) | 调试开关、Secret 存储、更新频道等 |
+```
+.
+├── docs/
+│   ├── installation.md   # 安装与配置指南
+│   └── settings.md       # 完整设置项参考（按 UI 标签页归类）
+├── config/
+│   └── config.yml        # 个人配置备份
+└── README.md
+```
 
-## 字段说明
+## 文档
 
-每条记录包含：
+- **[安装指南](docs/installation.md)** — OMP 安装步骤、config.yml 放置、模型路由配置、启动与登录
+- **[设置参考](docs/settings.md)** — 从 `settings-schema.ts` 提取的全部设置项，含类型、默认值、中文说明，按 Appearance / Model / Interaction / Context / Memory / Editing / Tools / Tasks / Providers 等分类
 
-- **设置键** — JSON 路径（如 `edit.mode`）
-- **类型** — `string` / `number` / `boolean` / `enum` / `record`
-- **默认值** — 出厂值
-- **描述** — 中文说明
+## 配置
+
+`config/config.yml` 是个人配置备份，可直接复制到 `~/.omp/agent/config.yml` 使用。
+
+关键预设：
+- **模型路由**：全部使用 OpenCode Go 订阅模型
+- **审批模式**：`write`（写入操作需确认）
+- **子任务隔离**：`rcopy` + `patch` 合并，最大并发 16
+- **异步模式**：已启用
+- **浏览器**：非 headless 模式
+
+## 参考
+
+- [Oh My Pi 官方仓库](https://github.com/can1357/oh-my-pi)
+
