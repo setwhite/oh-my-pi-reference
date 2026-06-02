@@ -1,4 +1,4 @@
-lastChangelogVersion: 15.5.15
+lastChangelogVersion: 15.7.6
 modelRoles: 
   slow: opencode-go/deepseek-v4-pro:xhigh
   smol: opencode-go/deepseek-v4-flash:high
@@ -10,23 +10,18 @@ modelRoles:
   commit: opencode-go/deepseek-v4-pro:high
 theme: 
   dark: dark-monokai
-statusLine: 
-  separator: pipe
 task: 
   showResolvedModelBadge: true
   maxConcurrency: 16
   isolation: 
     mode: rcopy
-    merge: patch
-  simple: schema-free
 hideThinkingBlock: true
-followUpMode: one-at-a-time
 contextPromotion: 
   enabled: false
 branchSummary: 
   enabled: true
 tools: 
-  approvalMode: write
+  approvalMode: yolo
 collapseChangelog: true
 commands: 
   enableClaudeUser: false
@@ -34,8 +29,8 @@ commands:
   enableOpencodeUser: false
   enableOpencodeProject: false
 browser: 
-  headless: false
-  screenshotDir: ""
+  headless: true
+  screenshotDir: ~/Desktop
 compaction: 
   handoffSaveToDisk: true
   strategy: handoff
@@ -56,3 +51,5 @@ provider:
   appendOnlyContext: auto
 disabledExtensions: 
   - context-file:user:CLAUDE.md
+symbolPreset: nerd
+setupVersion: 1
