@@ -712,9 +712,5 @@
 | `dev.autoqaPush.token` | string | `undefined` | Auto QA 推送令牌 |
 | `dev.autoqa.consent` | enum | `"unset"` | 用户同意收集报告：unset / granted / denied |
 
----
 
-> **相关文档**  
-> - [安装指南](installation.md) — 如何安装 OMP 并放置配置文件  
-> - [工具定义速查](tools-reference.md) — 内置工具一览  
-> - [README](../README.md) — 仓库首页
+→ [返回索引](../README.md)

@@ -67,6 +67,4 @@ omp
 
 ## 5. 下一步
 
-- 需要调整某项设置？→ [设置参考](settings.md)
-- 不熟悉某个工具？→ [工具定义速查](tools-reference.md)
-- 返回仓库首页 → [README](../README.md)
+→ [返回索引](../README.md)

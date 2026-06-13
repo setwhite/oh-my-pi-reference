@@ -1,8 +1,6 @@
 # 工具定义速查
 
-> 来源: `@oh-my-pi/pi-coding-agent` `src/tools/index.ts` `BUILTIN_TOOLS` + `HIDDEN_TOOLS`  
-> 版本: `15.12.3`  
-> 每个工具是否启用、行为参数见 [设置参考](settings.md)
+> 来源: `@oh-my-pi/pi-coding-agent@15.12.3`，`src/tools/index.ts` `BUILTIN_TOOLS` + `HIDDEN_TOOLS`
 
 ---
 
@@ -107,4 +105,4 @@
 
 ---
 
-> 返回仓库首页 → [README](../README.md)
+> → [返回索引](../README.md)
