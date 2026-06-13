@@ -1,10 +1,32 @@
-# Oh My Pi — Settings Schema 归类
+# Oh My Pi — 设置项参考
 
 > 来源: `settings-schema.ts` `SETTINGS_SCHEMA` 对象  
 > 按 `ui.tab` 归类；无 UI 的归入 **General / 无 UI**。  
-> 格式: `设置键` — 类型, 默认值 — 描述
+> 格式: `设置键` — 类型, 默认值 — 描述  
+> 如何修改？推荐用 `/settings` 交互式调整，或直接编辑 `~/.omp/agent/config.yml`。
 
 ---
+
+## 常用设置速览
+
+以下是日常使用中最可能调整的设置项：
+
+| 设置键 | 默认值 | 作用 |
+|---|---|---|
+| `tools.approvalMode` | `"yolo"` | 工具审批：always-ask / write / yolo |
+| `task.maxConcurrency` | `32` | 子代理最大并发数 |
+| `browser.headless` | `true` | 无头模式 vs 可见窗口 |
+| `hideThinkingBlock` | `false` | 隐藏 AI 思考过程块 |
+| `theme.dark` | `"titanium"` | 深色主题 |
+| `symbolPreset` | `"unicode"` | 图标风格：unicode / nerd / ascii |
+| `collapseChangelog` | `false` | 更新后精简变更日志 |
+| `compaction.strategy` | `"context-full"` | 上下文压缩策略 |
+| `async.enabled` | `false` | 启用异步后台任务 |
+| `github.enabled` | `false` | 启用 GitHub 集成 |
+| `inspect_image.enabled` | `false` | 启用图片检查工具 |
+
+---
+
 
 ## 目录
 
@@ -687,3 +709,10 @@
 |---|---|---|---|
 | `dev.autoqaPush.token` | string | `undefined` | Auto QA 推送令牌 |
 | `dev.autoqa.consent` | enum | `"unset"` | 用户同意收集报告：unset / granted / denied |
+
+---
+
+> **相关文档**  
+> - [安装指南](installation.md) — 如何安装 OMP 并放置配置文件  
+> - [工具定义速查](tools-reference.md) — 内置工具一览  
+> - [README](../README.md) — 仓库首页
