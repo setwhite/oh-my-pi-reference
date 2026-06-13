@@ -337,13 +337,15 @@
 
 | 设置键 | 类型 | 默认值 | 描述 |
 |---|---|---|---|
-| `irc.enabled` | boolean | `true` | 启用代理间 IRC 消息 |
 | `irc.timeoutMs` | number | `120000` | IRC 超时毫秒（0=禁用） |
+
+> IRC 工具无独立启用开关，由 `task.maxRecursionDepth` 控制。
 
 ### 可选工具开关
 
 | 设置键 | 类型 | 默认值 | 描述 |
 |---|---|---|---|
+| `bash.enabled` | boolean | `true` | 启用 bash 工具 |
 | `renderMermaid.enabled` | boolean | `false` | 渲染 Mermaid 图表为 ASCII |
 | `debug.enabled` | boolean | `true` | 启用 debug 工具 |
 | `calc.enabled` | boolean | `false` | 启用计算器工具 |
