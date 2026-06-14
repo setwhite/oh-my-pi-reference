@@ -11,9 +11,11 @@ theme:
   dark: dark-monokai
 task: 
   showResolvedModelBadge: true
-  maxConcurrency: 16
+  maxConcurrency: 32
   isolation: 
     mode: rcopy
+    commits: generic
+    merge: patch
 hideThinkingBlock: true
 contextPromotion: 
   enabled: false
