@@ -1,4 +1,3 @@
-lastChangelogVersion: 15.7.6
 modelRoles: 
   slow: opencode-go/deepseek-v4-pro:xhigh
   smol: opencode-go/deepseek-v4-flash:high
@@ -34,22 +33,69 @@ browser:
 compaction: 
   handoffSaveToDisk: true
   strategy: handoff
+  remoteEnabled: true
 inspect_image: 
   enabled: true
 github: 
   enabled: true
 display: 
   shimmer: classic
+  smoothStreaming: true
 async: 
   enabled: true
 mcp: 
   discoveryMode: false
 providers: 
-  webSearch: auto
+  webSearch: exa
   image: auto
+  tinyModelDevice: default
+  tinyModel: online
+  fetch: auto
+  kimiApiFormat: anthropic
 provider: 
   appendOnlyContext: auto
 disabledExtensions: 
   - context-file:user:CLAUDE.md
 symbolPreset: nerd
 setupVersion: 1
+colorBlindMode: false
+statusLine: 
+  sessionAccent: false
+  transparent: true
+  showHookStatus: true
+tui: 
+  textSizing: false
+  hyperlinks: auto
+web_search: 
+  enabled: true
+defaultThinkingLevel: high
+retry: 
+  modelFallback: true
+steeringMode: one-at-a-time
+treeFilterMode: default
+autocompleteMaxVisible: 5
+ask: 
+  timeout: 0
+startup: 
+  quiet: false
+autoResume: true
+marketplace: 
+  autoUpdate: notify
+ttsr: 
+  builtinRules: true
+memory: 
+  backend: "off"
+edit: 
+  mode: hashline
+lsp: 
+  enabled: true
+bashInterceptor: 
+  enabled: false
+shellMinimizer: 
+  sourceOutlineLevel: default
+snapcompact: 
+  shape: auto
+exa: 
+  enableWebsets: true
+  enableResearcher: true
+  enabled: true
