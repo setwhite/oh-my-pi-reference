@@ -12,34 +12,18 @@ irm https://omp.sh/install.ps1 | iex
 
 安装完成后，终端输入 `omp` 验证是否成功。
 
-## 2. 项目配置文件
+## 2. 放置配置文件
 
-仓库 `config/` 目录下有两个配置文件：
+将 `config/` 下的文件复制到 `~/.omp/agent/`：
 
-| 文件 | 用途 | 操作 |
+| 源文件 | 目标路径 | 用途 |
 |---|---|---|
-| `config/config.yml` | OMP 全局设置（模型路由、审批模式、压缩策略等） | 复制到 `~/.omp/agent/config.yml` |
-| `config/AGENTS.md` | 用户级全局编码规范（Python 规范、TDD 流程、代码维护准则） | 复制到 `~/.omp/agent/AGENTS.md` |
+| `config/config.yml` | `~/.omp/agent/config.yml` | OMP 全局设置（模型路由、审批模式等） |
+| `config/AGENTS.md` | `~/.omp/agent/AGENTS.md` | 用户级编码规范（Python 规范、TDD 流程等） |
 
-### 2.1 复制 config.yml
+**Windows 实际路径：** `C:\Users\<用户名>\.omp\agent\`
 
-将 OMP 全局设置文件复制到 agent 配置目录：
-
-| 源文件 | 目标路径 |
-|---|---|
-| `config/config.yml` | `~/.omp/agent/config.yml` |
-
-**Windows 实际路径：** `C:\Users\<用户名>\.omp\agent\config.yml`
-
-### 2.2 复制 AGENTS.md
-
-`config/AGENTS.md` 是用户级全局编码规范，OMP 会在每个会话启动时自动加载 `~/.omp/agent/AGENTS.md`。将其复制到 agent 配置目录：
-
-| 源文件 | 目标路径 |
-|---|---|
-| `config/AGENTS.md` | `~/.omp/agent/AGENTS.md` |
-
-**Windows 实际路径：** `C:\Users\<用户名>\.omp\agent\AGENTS.md`
+> `config/AGENTS.md` 是用户级全局编码规范。OMP 在每个会话启动时自动加载 `~/.omp/agent/AGENTS.md`。
 
 ## 3. 当前配置说明
 
