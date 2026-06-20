@@ -2,11 +2,11 @@ modelRoles:
   slow: opencode-go/deepseek-v4-pro:xhigh
   smol: opencode-go/deepseek-v4-flash:high
   vision: opencode-go/kimi-k2.6:medium
-  default: opencode-go/deepseek-v4-pro:high
   plan: opencode-go/deepseek-v4-pro:xhigh
   designer: opencode-go/kimi-k2.6:xhigh
   task: opencode-go/deepseek-v4-pro:high
   commit: opencode-go/deepseek-v4-pro:high
+  default: opencode-go/deepseek-v4-pro:high
 theme: 
   dark: dark-monokai
 task: 
@@ -80,7 +80,7 @@ ask:
   timeout: 0
 startup: 
   quiet: false
-autoResume: true
+autoResume: false
 marketplace: 
   autoUpdate: notify
 ttsr: 
