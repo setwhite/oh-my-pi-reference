@@ -714,10 +714,4 @@
 
 
 
----
-
-## 相关项目配置
-
-除 `config.yml` 中的设置项外，本仓库 `config/` 目录还包含 `AGENTS.md`——用户级全局编码规范文件。需手动复制到 `~/.omp/agent/AGENTS.md`，OMP 在每个会话启动时自动加载。包含 Python 规范、TDD 工作流和代码维护准则。详见 [安装指南](installation.md)。
-
 → [返回索引](../README.md)
