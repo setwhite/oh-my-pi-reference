@@ -103,6 +103,16 @@
 | `reflect` | 记忆反思 |
 | `memory_edit` | 记忆编辑 |
 
+
+## 四、项目配置补充
+
+本仓库 `config/` 目录下的配置文件（与工具配合使用）：
+
+| 文件 | 说明 |
+|---|---|
+| `config/config.yml` | OMP 全局设置（模型路由、审批模式、压缩策略等），需复制到 `~/.omp/agent/config.yml` |
+| `config/AGENTS.md` | `config/` 目录的编码规范。OMP 自动发现并加载：包含 Python 规范、KISS 原则、TDD 工作流、代码维护准则。详见 [安装指南](installation.md) |
+
 ---
 
 > → [返回索引](../README.md)

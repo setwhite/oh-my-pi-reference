@@ -713,4 +713,11 @@
 | `dev.autoqa.consent` | enum | `"unset"` | 用户同意收集报告：unset / granted / denied |
 
 
+
+---
+
+## 相关项目配置
+
+除 `config.yml` 中的设置项外，本仓库 `config/` 目录还包含 `AGENTS.md`——`config/` 目录的编码规范文件。OMP 在编辑该目录时自动加载，提供 Python 规范、TDD 工作流和代码维护准则。详见 [安装指南](installation.md)。
+
 → [返回索引](../README.md)

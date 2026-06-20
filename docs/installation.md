@@ -12,15 +12,30 @@ irm https://omp.sh/install.ps1 | iex
 
 安装完成后，终端输入 `omp` 验证是否成功。
 
-## 2. 放置配置文件
+## 2. 项目配置文件
 
-将仓库中的配置文件复制到 OMP agent 配置目录：
+仓库 `config/` 目录下有两个配置文件：
+
+| 文件 | 用途 | 操作 |
+|---|---|---|
+| `config/config.yml` | OMP 全局设置（模型路由、审批模式、压缩策略等） | 复制到 `~/.omp/agent/config.yml` |
+| `config/AGENTS.md` | `config/` 目录的编码规范（Python 规范、TDD 流程、代码维护准则） | 保留在仓库中，OMP 自动发现并加载 |
+
+### 2.1 复制 config.yml
+
+将 OMP 全局设置文件复制到 agent 配置目录：
 
 | 源文件 | 目标路径 |
 |---|---|
 | `config/config.yml` | `~/.omp/agent/config.yml` |
 
 **Windows 实际路径：** `C:\Users\<用户名>\.omp\agent\config.yml`
+
+### 2.2 AGENTS.md（目录级编码规范）
+
+`config/AGENTS.md` 是 OMP 的目录级上下文文件（Context File）。当 agent 编辑 `config/` 目录下的文件时，OMP 会自动加载其中的编码规范作为指导——包括 Python 编码风格、KISS 原则、TDD 工作流和代码维护准则。
+
+此文件无需手动复制到用户目录，保留在仓库中即可。
 
 ## 3. 当前配置说明
 
