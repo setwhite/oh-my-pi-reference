@@ -111,7 +111,7 @@
 | 文件 | 说明 |
 |---|---|
 | `config/config.yml` | OMP 全局设置（模型路由、审批模式、压缩策略等），需复制到 `~/.omp/agent/config.yml` |
-| `config/AGENTS.md` | `config/` 目录的编码规范。OMP 自动发现并加载：包含 Python 规范、KISS 原则、TDD 工作流、代码维护准则。详见 [安装指南](installation.md) |
+| `config/AGENTS.md` | 用户级全局编码规范。需手动复制到 `~/.omp/agent/AGENTS.md`，OMP 启动时自动加载。包含 Python 规范、KISS 原则、TDD 工作流、代码维护准则。详见 [安装指南](installation.md) |
 
 ---
 
