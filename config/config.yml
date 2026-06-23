@@ -92,6 +92,8 @@ edit:
   mode: hashline
 lsp: 
   enabled: true
+  formatOnWrite: true
+  diagnosticsOnEdit: true
 bashInterceptor: 
   enabled: false
 shellMinimizer: 
