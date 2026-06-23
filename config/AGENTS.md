@@ -1,33 +1,33 @@
 <guidelines>
   <section name="Python 规范">
     <rule>
-      <when>需要安装或管理包时</when>
+      <when>安装或管理包时</when>
       <do>使用 uv</do>
       <dont>使用 pip</dont>
     </rule>
     <rule>
       <when>定义函数签名、类属性或数据类字段时</when>
-      <do>写出完整的类型提示（Type Hints）</do>
-      <dont>依赖隐式推断</dont>
+      <do>编写完整的类型标注</do>
+      <dont>省略类型标注</dont>
     </rule>
   </section>
 
   <section name="Markdown 规范">
     <rule>
-      <when>编写或修改Markdown时</when>
-      <do>遵循 KISS 原则</do>
-      <dont>过度设计、编写投机性内容、或添加未要求的灵活性</dont>
+      <when>编写或编辑 Markdown 时</when>
+      <do>保持简洁——只写任务所需的内容</do>
+      <dont>过度设计、随意推测、添加未要求的灵活性</dont>
     </rule>
   </section>
 
   <section name="通用准则">
     <rule>
-      <when>用户提出新想法、新方法或新概念时</when>
-      <do>调用 `web_search` 工具对标已有领域的术语、理论和成熟实践，再判断其新意所在</do>
-      <dont>将已有成熟东西重新包装成"原创框架"、以及重复造轮子</dont>
+      <when>用户提出新的想法、方法或概念时</when>
+      <do>调用 `web_search` 工具，查找已有的术语、理论和实践，找到依据</do>
+      <dont>将成熟的工作重新包装成新东西、重复造轮子</dont>
     </rule>
     <rule>
-      <when>遇到需求模糊或存在多套方案时</when>
+      <when>你遇到不懂的、用户需求不清晰、存在多套方案、存在歧义</when>
       <do>
           调用 `ask` 工具，对用户需求刨根问底地盘问：
             遍历决策树每一个分支，逐项消除依赖，直到达成共识
@@ -37,17 +37,17 @@
       <dont>
           盲目猜测然后自行决定
           不探索代码库就提问
-          达成共识前开始做事
+          达成共识前开始编码
       </dont>
     </rule>
     <rule>
       <when>编写注释、Docstrings、设计文档或提交信息时</when>
-      <do>强制使用中文，以降低理解门槛与认知负荷</do>
-      <dont>使用任何非中文语言撰写内容（专业术语中不可避免的外文除外）</dont>
+      <do>强制使用中文</do>
+      <dont>使用任何非中文语言、除非是专业术语</dont>
     </rule>
   </section>
 
-  <section name="开发工作流">
+  <section name="TDD开发流程">
     <section name="准备">
       <step name="任务拆解">
         <when>需求明确后</when>
@@ -55,27 +55,27 @@
           列出可独立验证的检查项，使用 `todo` 工具创建清单。
           每个检查项须可判断通过/失败。
         </do>
-        <dont>需求未消歧前直接拆解；跳过验证标准定义</dont>
+        <dont>需求未消歧前直接拆解、跳过验证标准定义</dont>
       </step>
       <step name="搭建测试框架">
-        <when>项目尚无测试框架，且任务涉及可测试逻辑时</when>
+        <when>尚无测试框架，且任务涉及可测试逻辑时</when>
         <do>搭建最小测试框架，确认能运行一个空测试并失败</do>
-        <dont>搭建过度工程化的测试基础设施；为未涉及的功能预设 fixtures</dont>
+        <dont>过度构建；为未涉及的功能预设 fixtures</dont>
       </step>
       <step name="数据与接口设计">
-        <when>任务涉及新增数据结构或公共接口时</when>
-        <do>定义数据形态（字段、关系、约束），设计函数/类签名，编写中文 Docstrings 明确输入输出及边界</do>
-        <dont>跳过设计直接实现；对所有任务强制建模</dont>
+        <when>任务引入新数据结构或公共接口时</when>
+        <do>定义结构、签名和约束；为输入、输出和边界情况编写中文文档</do>
+        <dont>跳过设计直接实现</dont>
       </step>
     </section>
     <section name="红-绿-重构循环">
       <step name="红灯">
         <when>取一个检查项开始实现</when>
-        <do>仅针对当前检查项编写测试：先正常路径，再边界和异常。运行并确认红灯</do>
-        <dont>一次写完所有测试；跳过边界和异常路径</dont>
+        <do>仅针对当前检查项编写测试：先正常路径，再边界和异常。确认测试失败</do>
+        <dont>一次性编写全部测试；跳过边界和异常情况</dont>
       </step>
       <step name="绿灯">
-        <when>测试红灯后</when>
+        <when>测试失败后</when>
         <do>编写刚好足够的代码使当前测试通过</do>
         <dont>实现测试未覆盖的功能；为未来需求预留代码或抽象</dont>
       </step>

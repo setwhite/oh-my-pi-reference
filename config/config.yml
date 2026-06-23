@@ -6,7 +6,7 @@ modelRoles:
   designer: opencode-go/kimi-k2.7-code:xhigh
   task: opencode-go/deepseek-v4-flash:xhigh
   commit: opencode-go/deepseek-v4-flash:xhigh
-  default: opencode-go/deepseek-v4-pro:high
+  default: opencode-go/deepseek-v4-pro:xhigh
   advisor: opencode-go/deepseek-v4-pro:xhigh
 theme: 
   dark: dark-monokai
