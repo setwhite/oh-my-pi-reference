@@ -12,34 +12,15 @@
     </rule>
   </section>
 
-  <section name="Markdown 规范">
+  <section name="KISS 原则">
     <rule>
-      <when>编写或编辑 Markdown 时</when>
-      <do>保持简洁——只写任务所需的内容</do>
-      <dont>过度设计、随意推测、添加未要求的灵活性</dont>
+      <when>编写代码、文档、或做任何工程决策时</when>
+      <do>保持简洁——只做任务所需的最小改动，不加未要求的灵活性</do>
+      <dont>过度设计、随意推测、画蛇添足</dont>
     </rule>
   </section>
 
-  <section name="通用准则">
-    <rule>
-      <when>用户提出新的想法、方法或概念时</when>
-      <do>调用 `web_search` 工具，查找已有的术语、理论和解决方案</do>
-      <dont>将成熟的工作重新包装成新东西、重复造轮子</dont>
-    </rule>
-    <rule>
-      <when>你有不懂的问题、用户需求不清晰、存在多套方案或存在歧义时</when>
-      <do>
-          调用 `ask` 工具，对用户需求刨根问底地盘问
-          遍历决策树每一个分支，逐项消除依赖，直到达成共识
-          能探索代码库回答的，先探索再提问
-          达成共识后，生成结构化计划文件
-      </do>
-      <dont>
-          盲目猜测然后自行决定
-          不探索代码库就提问
-          达成共识前开始编码
-      </dont>
-    </rule>
+  <section name="语言规范">
     <rule>
       <when>编写注释、Docstrings、设计文档或提交信息时</when>
       <do>强制使用中文</do>
@@ -47,56 +28,37 @@
     </rule>
   </section>
 
-  <section name="TDD开发流程">
-    <section name="准备">
-      <step name="任务拆解">
-        <when>需求明确后</when>
-        <do>
-          列出可独立验证的检查项，使用 `todo` 工具创建清单。
-          每个检查项须可判断通过/失败。
-        </do>
-        <dont>需求未消歧前直接拆解、跳过验证标准定义</dont>
-      </step>
-      <step name="搭建测试框架">
-        <when>尚无测试框架，且任务涉及可测试逻辑时</when>
-        <do>搭建最小测试框架，确认能运行一个空测试并失败</do>
-        <dont>过度构建；为未涉及的功能预设 fixtures</dont>
-      </step>
-      <step name="数据与接口设计">
-        <when>任务引入新数据结构或公共接口时</when>
-        <do>定义结构、签名和约束；为输入、输出和边界情况编写中文文档</do>
-        <dont>跳过设计直接实现</dont>
-      </step>
-    </section>
-    <section name="红-绿-重构循环">
-      <step name="红灯">
-        <when>取一个检查项开始实现</when>
-        <do>仅针对当前检查项编写测试：先正常路径，再边界和异常。确认测试失败</do>
-        <dont>一次性编写全部测试；跳过边界和异常情况</dont>
-      </step>
-      <step name="绿灯">
-        <when>测试失败后</when>
-        <do>编写刚好足够的代码使当前测试通过</do>
-        <dont>实现测试未覆盖的功能；为未来需求预留代码或抽象</dont>
-      </step>
-      <step name="重构">
-        <when>测试绿灯后</when>
-        <do>消除重复、改善命名、提取公共逻辑。保持测试全绿</do>
-        <dont>绿灯后直接进入下一个检查项；在测试不通过时重构</dont>
-      </step>
-      <step name="循环">
-        <when>重构完成、测试全绿后</when>
-        <do>回到「红灯」，取下一个检查项，重复红-绿-重构循环直至全部通过</do>
-        <dont>检查项全部通过前进入回归</dont>
-      </step>
-    </section>
-    <section name="收尾">
-      <step name="全量回归">
-        <when>全部检查项通过后</when>
-        <do>运行全部测试套件，确保未破坏既有逻辑</do>
-        <dont>跳过全量回归</dont>
-      </step>
-    </section>
+  <section name="代码硬性上限">
+    <rule>
+      <when>编写函数或方法时</when>
+      <do>函数体 ≤ 50 行；超过则拆分</do>
+      <dont>放任函数无限增长</dont>
+    </rule>
+    <rule>
+      <when>编写任何源文件时</when>
+      <do>文件 ≤ 300 行；超过则拆模块</do>
+      <dont>把所有逻辑堆进单文件</dont>
+    </rule>
+    <rule>
+      <when>编写控制流时</when>
+      <do>嵌套深度 ≤ 3 层；超过则提取函数或提前 return</do>
+      <dont>深层嵌套</dont>
+    </rule>
+    <rule>
+      <when>定义函数签名时</when>
+      <do>位置参数 ≤ 3 个；超过则改用对象/数据类传参</do>
+      <dont>参数列表无限扩张</dont>
+    </rule>
+    <rule>
+      <when>编写条件分支或循环时</when>
+      <do>圈复杂度 ≤ 10；超过则拆分逻辑</do>
+      <dont>写出不可测试的意大利面条</dont>
+    </rule>
+    <rule>
+      <when>编写任何字面量时</when>
+      <do>用命名常量代替魔法数字</do>
+      <dont>裸写数字字面量（0、1、-1 等公认语义值除外）</dont>
+    </rule>
   </section>
 
   <section name="代码维护">
@@ -116,4 +78,22 @@
       <dont>擅自删除历史遗留的死代码；如发现，可以提示用户，但严禁自行删除</dont>
     </rule>
   </section>
+
+  <section name="交付闸门">
+    <rule>
+      <when>声明任务完成、准备 commit、或准备 push 之前</when>
+      <do>
+        逐条确认以下四道闸门全部通过：
+        1. 已完成与本次改动直接相关的验证，并如实报告结果
+        2. 已通过该任务对应的测试等级（见 tdd skill 分流判定）
+        3. 若仓库或项目有更严格的验证要求，以仓库为准
+        4. 若关键验证无法执行，明确说明原因，并降低完成度表述
+      </do>
+      <dont>
+        声称「完成」「通过」「没问题」但未实际运行验证
+        跳过验证后仍以「已完成」交差
+      </dont>
+    </rule>
+  </section>
+
 </guidelines>
