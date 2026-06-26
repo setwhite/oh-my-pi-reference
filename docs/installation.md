@@ -13,15 +13,17 @@ irm https://omp.sh/install.ps1 | iex
 安装完成后，终端输入 `omp` 验证是否成功。
 
 ## 2. 放置配置文件
-
 将 `config/` 下的文件复制到 `~/.omp/agent/`：
 
 | 源文件 | 目标路径 | 用途 |
 |---|---|---|
 | `config/config.yml` | `~/.omp/agent/config.yml` | OMP 全局设置（模型路由、审批模式等） |
 | `config/AGENTS.md` | `~/.omp/agent/AGENTS.md` | 用户级编码规范（Python 规范、TDD 流程等） |
+| `config/skills/` | `~/.omp/agent/skills/` | 全局 skills（commit 格式、TDD 流程等） |
 
 **Windows 实际路径：** `C:\Users\<用户名>\.omp\agent\`
+
+> 复制 skills 目录时使用递归复制：`cp -r config/skills/ ~/.omp/agent/skills/`
 
 > `config/AGENTS.md` 是用户级全局编码规范。OMP 在每个会话启动时自动加载 `~/.omp/agent/AGENTS.md`。
 

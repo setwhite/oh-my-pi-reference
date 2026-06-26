@@ -20,7 +20,8 @@
 │   └── tools-reference.md   # 内置工具定义速查
 ├── config/
 │   ├── config.yml           # 个人 OMP 配置备份
-│   └── AGENTS.md            # 用户级编码规范（Python/TDD 等）
+│   ├── AGENTS.md            # 用户级编码规范（Python/TDD 等）
+│   └── skills/              # 全局 skills（commit-style, tdd 等 6 个）
 └── README.md
 ```
 
