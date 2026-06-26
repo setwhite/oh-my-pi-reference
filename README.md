@@ -22,8 +22,22 @@
 │   ├── config.yml           # 个人 OMP 配置备份
 │   ├── AGENTS.md            # 用户级编码规范（Python/TDD 等）
 │   └── skills/              # 全局 skills（commit-style, tdd 等 6 个）
+├── .omp/
+│   └── skills/
+│       ├── sync-config/     # 项目 skill：将 OMP 配置同步到仓库
+│       └── install-to-omp/  # 项目 skill：将仓库配置安装回 OMP
 └── README.md
 ```
+
+## 快速开始
+
+```bash
+git clone https://github.com/setwhite/oh-my-pi-reference.git
+cd oh-my-pi-reference
+omp
+```
+
+进入 OMP 后输入 **“安装配置”** 即可自动将 `config/` 下的配置、指南和 skills 部署到 `~/.omp/agent/`。
 
 ## 参考
 

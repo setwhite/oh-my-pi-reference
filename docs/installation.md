@@ -12,20 +12,37 @@ irm https://omp.sh/install.ps1 | iex
 
 安装完成后，终端输入 `omp` 验证是否成功。
 
-## 2. 放置配置文件
-将 `config/` 下的文件复制到 `~/.omp/agent/`：
+## 2. 克隆仓库并安装配置
 
-| 源文件 | 目标路径 | 用途 |
-|---|---|---|
-| `config/config.yml` | `~/.omp/agent/config.yml` | OMP 全局设置（模型路由、审批模式等） |
-| `config/AGENTS.md` | `~/.omp/agent/AGENTS.md` | 用户级编码规范（Python 规范、TDD 流程等） |
-| `config/skills/` | `~/.omp/agent/skills/` | 全局 skills（commit 格式、TDD 流程等） |
+克隆本仓库后，OMP 会自动加载仓库内置的项目 skills。
 
-**Windows 实际路径：** `C:\Users\<用户名>\.omp\agent\`
+```bash
+git clone https://github.com/setwhite/oh-my-pi-reference.git
+cd oh-my-pi-reference
+```
 
-> 复制 skills 目录时使用递归复制：`cp -r config/skills/ ~/.omp/agent/skills/`
+然后在仓库目录内启动 OMP：
 
-> `config/AGENTS.md` 是用户级全局编码规范。OMP 在每个会话启动时自动加载 `~/.omp/agent/AGENTS.md`。
+```bash
+omp
+```
+
+在 OMP 对话中输入 **“安装配置”**，触发 `install-to-omp` skill。该 skill 会交互式询问：
+
+1. 要安装哪些内容（config.yml / AGENTS.md / skills）
+2. skills 安装到用户级（全局生效）还是项目级
+3. 要安装哪些 skills
+
+选择后自动将 `config/` 下的文件复制到 `~/.omp/agent/`。
+
+> 也可以手动复制：
+> ```bash
+> cp config/config.yml ~/.omp/agent/
+> cp config/AGENTS.md  ~/.omp/agent/
+> cp -r config/skills/ ~/.omp/agent/skills/
+> ```
+>
+> Windows 实际路径：`C:\Users\<用户名>\.omp\agent\`
 
 ## 3. 当前配置说明
 
