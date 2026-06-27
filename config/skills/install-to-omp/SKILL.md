@@ -71,7 +71,7 @@ questions:
       - label: 用户级
         description: 复制到 ~/.omp/agent/skills/，所有项目共享
       - label: 项目级
-        description: 仅保留在仓库 .omp/skills/ 中，仅本仓库生效
+        description: 复制到仓库 .omp/skills/，仅本仓库生效
     recommended: 0
 ```
 
@@ -91,8 +91,8 @@ questions:
 ```
 
 **构建方式：**
-1. `ls config/skills/` 获取所有子目录名
-2. 对每个子目录 `name`，读取 `config/skills/<name>/SKILL.md` 的前几行，提取 YAML frontmatter 中的 `description` 字段
+1. `read config/skills/`（目录路径）获取所有子目录名
+2. 对每个子目录 `name`，`read config/skills/<name>/SKILL.md:1-10`，提取 YAML frontmatter 中的 `description` 字段（YAML 块以第二个 `---` 结束）
 3. 过滤掉 `name == "install-to-omp"` 的条目
 4. 按目录名字母序排列
 5. 用提取到的 `name: description` 对填充 options；recommended 为全部索引
@@ -108,11 +108,13 @@ questions:
 | config.yml | `config/config.yml` | `~/.omp/agent/config.yml` |
 | AGENTS.md | `config/AGENTS.md` | `~/.omp/agent/AGENTS.md` |
 | skills/ (用户级) | `config/skills/<name>/` | `~/.omp/agent/skills/<name>/` |
+| skills/ (项目级) | `config/skills/<name>/` | `.omp/skills/<name>/` |
 
 - 直接使用 `cp` 复制单文件
 - skills 目录使用 `cp -r` 递归复制整个技能目录
-- 若目标目录不存在，先 `mkdir -p ~/.omp/agent/skills/`
-- 如果用户选择"项目级" skills，则无需操作（skills 已在仓库 `.omp/skills/` 中）
+- 目标目录不存在时，先 `mkdir -p` 创建：
+  - 用户级：`~/.omp/agent/skills/`
+  - 项目级：`.omp/skills/`
 
 **config.yml 的后处理：**
 
