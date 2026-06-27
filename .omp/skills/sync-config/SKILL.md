@@ -16,11 +16,12 @@ globs:
 
 ## 步骤
 
-1. 复制源文件到目标：
+1. 清理并复制源文件到目标：
+   - `mkdir -p config/`
    - `cp ~/.omp/agent/config.yml config/config.yml`
    - `cp ~/.omp/agent/AGENTS.md config/AGENTS.md`
-   - `cp -r ~/.omp/agent/skills/ config/skills/`
-2. 检查是否有实际变更（`git diff --stat config/`）
+   - `rm -rf config/skills/ && cp -r ~/.omp/agent/skills/ config/skills/`
+2. 检查是否有实际变更（`git status --short config/`——需同时覆盖已跟踪文件的差异和新增文件）
 3. 若无变更，报告"配置、指南和 skills 已是最新，无需提交"并结束
 4. 若有变更：
    - `git add config/`
@@ -32,4 +33,4 @@ globs:
 - 源路径 `~/.omp/` 在 Windows 下展开为 `C:\Users\<用户名>\.omp\`
 - 直接使用 bash `cp` 复制，无需 `write` 工具中转
 - 仅在有实际差异时才提交推送
-- skills 目录使用 `cp -r` 递归复制整个目录树
+- skills 目录先 `rm -rf` 清空目标，再 `cp -r` 复制——防止历史遗留的嵌套目录污染目标路径
