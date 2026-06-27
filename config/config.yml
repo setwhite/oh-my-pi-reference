@@ -118,3 +118,5 @@ bash:
     enabled: true
 read: 
   toolResultPreview: true
+  summarize: 
+    prose: false
