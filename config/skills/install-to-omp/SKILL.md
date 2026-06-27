@@ -33,7 +33,7 @@ questions:
       - label: AGENTS.md
         description: 用户级编码规范（Python 规范、TDD 流程等）
       - label: skills/
-        description: 全局 skills（commit-style、deep-dive、grill-me、prior-art-research、skill-creator、tdd）
+        description: 全局 skills（自动扫描 config/skills/ 发现）
     multi: true
     recommended: [0, 1, 2]
 ```
@@ -77,26 +77,25 @@ questions:
 
 **问题四（仅当用户选择了 skills/ 时）：同步哪些 skills？**
 
+先扫描 `config/skills/` 目录，对每个子目录读取其 `SKILL.md` frontmatter 中的 `name` 和 `description`，排除 `install-to-omp` 自身，动态构建选项：
+
 ```yaml
 questions:
   - id: which_skills
     question: 要同步 config/skills/ 下的哪些 skills？
     options:
-      - label: commit-style
-        description: 约定式 commit 信息规范
-      - label: deep-dive
-        description: 概念深度解析——系统构建知识体系
-      - label: grill-me
-        description: 需求澄清与消歧——结构化盘问
-      - label: prior-art-research
-        description: 先验研究——防止重复造轮子
-      - label: skill-creator
-        description: Skill 创建、修改与评测
-      - label: tdd
-        description: 测试驱动开发与测试策略分级
+      # 动态生成：每个子目录一条，label=目录名，description=SKILL.md frontmatter.description
+      # 排除 install-to-omp
     multi: true
-    recommended: [0, 1, 2, 3, 4, 5]
+    recommended: [0, 1, 2, ...]  # 全部推荐
 ```
+
+**构建方式：**
+1. `ls config/skills/` 获取所有子目录名
+2. 对每个子目录 `name`，读取 `config/skills/<name>/SKILL.md` 的前几行，提取 YAML frontmatter 中的 `description` 字段
+3. 过滤掉 `name == "install-to-omp"` 的条目
+4. 按目录名字母序排列
+5. 用提取到的 `name: description` 对填充 options；recommended 为全部索引
 
 ### 2. 执行复制
 
