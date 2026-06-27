@@ -17,6 +17,7 @@ task:
     mode: rcopy
     commits: generic
     merge: patch
+  enableLsp: true
 hideThinkingBlock: true
 contextPromotion: 
   enabled: false
@@ -44,6 +45,8 @@ github:
 display: 
   shimmer: classic
   smoothStreaming: true
+  cacheMissMarker: true
+  showTokenUsage: false
 async: 
   enabled: true
 mcp: 
@@ -69,6 +72,7 @@ statusLine:
 tui: 
   textSizing: false
   hyperlinks: auto
+  tight: true
 web_search: 
   enabled: true
 defaultThinkingLevel: high
@@ -80,7 +84,7 @@ autocompleteMaxVisible: 5
 ask: 
   timeout: 0
 startup: 
-  quiet: false
+  quiet: true
 autoResume: false
 marketplace: 
   autoUpdate: notify
@@ -90,6 +94,7 @@ memory:
   backend: "off"
 edit: 
   mode: hashline
+  fuzzyMatch: true
 lsp: 
   enabled: true
   formatOnWrite: true
@@ -104,3 +109,12 @@ exa:
   enableWebsets: true
   enableResearcher: true
   enabled: true
+readLineNumbers: false
+personality: pragmatic
+magicKeywords: 
+  enabled: false
+bash: 
+  autoBackground: 
+    enabled: true
+read: 
+  toolResultPreview: true
