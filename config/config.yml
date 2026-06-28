@@ -73,6 +73,7 @@ tui:
   textSizing: false
   hyperlinks: auto
   tight: true
+  renderMermaid: true
 web_search: 
   enabled: true
 defaultThinkingLevel: high
