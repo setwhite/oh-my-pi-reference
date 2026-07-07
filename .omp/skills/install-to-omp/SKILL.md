@@ -35,7 +35,7 @@ questions:
       - label: skills/
         description: 全局 skills（自动扫描 config/skills/ 发现）
     multi: true
-    recommended: [0, 1, 2]
+    recommended: 0
 ```
 
 
@@ -87,7 +87,7 @@ questions:
       # 动态生成：每个子目录一条，label=目录名，description=SKILL.md frontmatter.description
       # 排除 install-to-omp
     multi: true
-    recommended: [0, 1, 2, ...]  # 全部推荐
+    recommended: 0  # 全部推荐
 ```
 
 **构建方式：**
@@ -118,29 +118,12 @@ questions:
 
 **config.yml 的后处理：**
 
-如果用户选择了 config.yml，先 `cp config/config.yml ~/.omp/agent/config.yml`，然后根据前面 nerd_font 和 enable_memory 的回答，用 `eval`（Python）修改目标 YAML：
+如果用户选择了 config.yml，先 `cp config/config.yml ~/.omp/agent/config.yml`，然后根据前面 nerd_font 和 enable_memory 的回答修改目标文件。修改操作仅为逐行级简单替换，使用 `grep`/`sed` 即可，不要依赖 `pyyaml` 等第三方库：
 
-```python
-import yaml
-from pathlib import Path
+- 如果用户选择"否"（没有 Nerd Font）：`sed -i '/^symbolPreset:/d' ~/.omp/agent/config.yml`
+- 如果用户选择"是"（开启记忆）：`sed -i 's/backend: "off"/backend: local/' ~/.omp/agent/config.yml`
 
-target = Path.home() / ".omp" / "agent" / "config.yml"
-with open(target) as f:
-    config = yaml.safe_load(f)
-
-# 如果用户选择"否"（没有 Nerd Font），删除 symbolPreset 键
-if not has_nerd_font:
-    config.pop("symbolPreset", None)
-
-# 如果用户选择"是"（开启记忆），将 memory.backend 设为 "local"
-if enable_memory:
-    config.setdefault("memory", {})["backend"] = "local"
-
-with open(target, "w") as f:
-    yaml.dump(config, f, allow_unicode=True, default_flow_style=False, sort_keys=False)
-```
-
-其中 `has_nerd_font` 和 `enable_memory` 来自用户对问题二的回答。
+完成后用 `grep symbolPreset\|backend ~/.omp/agent/config.yml` 验证关键字段是否生效。
 
 ### 3. 报告结果
 
