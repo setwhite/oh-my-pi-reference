@@ -123,6 +123,6 @@ read:
   summarize: 
     prose: false
 checkpoint: 
-  enabled: true
+  enabled: false
 recap: 
   enabled: false
