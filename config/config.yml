@@ -53,7 +53,7 @@ async:
 mcp: 
   discoveryMode: false
 providers: 
-  webSearch: exa
+  webSearch: auto
   image: auto
   tinyModelDevice: default
   tinyModel: online
