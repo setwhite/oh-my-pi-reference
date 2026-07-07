@@ -7,7 +7,7 @@ modelRoles:
   task: opencode-go/deepseek-v4-flash:xhigh
   commit: opencode-go/deepseek-v4-flash:xhigh
   default: opencode-go/deepseek-v4-pro:xhigh
-  advisor: opencode-go/deepseek-v4-pro:xhigh
+  advisor: opencode-go/glm-5.2:xhigh
   tiny: opencode-go/deepseek-v4-flash:xhigh
 theme: 
   dark: dark-monokai
@@ -40,7 +40,7 @@ compaction:
   strategy: handoff
   remoteEnabled: true
 inspect_image: 
-  enabled: true
+  enabled: false
 github: 
   enabled: true
 display: 
