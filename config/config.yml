@@ -8,6 +8,7 @@ modelRoles:
   commit: opencode-go/deepseek-v4-flash:xhigh
   default: opencode-go/deepseek-v4-pro:xhigh
   advisor: opencode-go/deepseek-v4-pro:xhigh
+  tiny: opencode-go/deepseek-v4-flash:xhigh
 theme: 
   dark: dark-monokai
 task: 
@@ -111,7 +112,7 @@ exa:
   enableResearcher: true
   enabled: true
 readLineNumbers: false
-personality: pragmatic
+personality: none
 magicKeywords: 
   enabled: false
 bash: 
@@ -121,3 +122,7 @@ read:
   toolResultPreview: true
   summarize: 
     prose: false
+checkpoint: 
+  enabled: true
+recap: 
+  enabled: false
