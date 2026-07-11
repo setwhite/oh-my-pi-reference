@@ -1,14 +1,14 @@
 modelRoles: 
-  slow: opencode-go/deepseek-v4-pro:xhigh
-  smol: opencode-go/deepseek-v4-flash:xhigh
+  slow: opencode-go/deepseek-v4-pro:max
+  smol: opencode-go/deepseek-v4-flash:max
   vision: opencode-go/qwen3.7-plus:medium
-  plan: opencode-go/glm-5.2:xhigh
-  designer: opencode-go/kimi-k2.7-code:xhigh
-  task: opencode-go/deepseek-v4-flash:xhigh
-  commit: opencode-go/deepseek-v4-flash:xhigh
-  default: opencode-go/deepseek-v4-pro:xhigh
-  advisor: opencode-go/glm-5.2:xhigh
-  tiny: opencode-go/deepseek-v4-flash:xhigh
+  plan: opencode-go/glm-5.2:max
+  designer: opencode-go/kimi-k2.7-code:max
+  task: opencode-go/deepseek-v4-flash:max
+  commit: opencode-go/deepseek-v4-flash:max
+  default: opencode-go/deepseek-v4-pro:max
+  advisor: opencode-go/glm-5.2:max
+  tiny: opencode-go/deepseek-v4-flash:max
 theme: 
   dark: dark-monokai
 task: 
@@ -77,7 +77,7 @@ tui:
   renderMermaid: true
 web_search: 
   enabled: true
-defaultThinkingLevel: high
+defaultThinkingLevel: max
 retry: 
   modelFallback: true
 steeringMode: one-at-a-time
@@ -115,6 +115,9 @@ readLineNumbers: false
 personality: none
 magicKeywords: 
   enabled: false
+  ultrathink: false
+  workflow: false
+  orchestrate: false
 bash: 
   autoBackground: 
     enabled: true
