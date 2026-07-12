@@ -111,7 +111,7 @@ exa:
   enableWebsets: true
   enableResearcher: true
   enabled: true
-readLineNumbers: false
+readLineNumbers: true
 personality: none
 magicKeywords: 
   enabled: false

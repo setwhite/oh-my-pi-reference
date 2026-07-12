@@ -1,122 +1,78 @@
 ---
 name: skill-creator
 disableModelInvocation: true
-description: 创建、修改和优化 skills，运行 evals 测试 skill 效果，优化 skill description 触发精度。
+description: 创建、修改和优化 skills。当用户想要创建新 skill、改进已有 skill、或优化触发描述时使用。
 ---
 
-# Skill Creator
+# Skill Creator — 创建与迭代 Skill
 
-A skill for creating new skills and iteratively improving them.
+## 核心原则
 
-At a high level: decide what the skill does → draft it → create test prompts → run them (with and without the skill) → evaluate results with the user → rewrite → repeat. Expand the test set and try again at larger scale when ready.
+Skill 是写给 AI 看的操作手册——告诉它何时触发、干什么、怎么干、输出什么。写好一个 skill 的本质：意图清晰、步骤可执行、边界明确。
 
-Your job is to figure out where the user is in this process and help them progress. If they already have a draft, jump to the eval/iterate loop. Stay flexible — if they just want to vibe, do that instead.
-
-After the skill is done, run the description improver script to optimize triggering.
-
----
-
-## Creating a skill
-
-### Capture Intent
-
-Start by understanding the user's intent. The current conversation might already contain a workflow the user wants to capture (e.g., they say "turn this into a skill"). If so, extract answers from the conversation history first — the tools used, the sequence of steps, corrections the user made, input/output formats observed. The user may need to fill the gaps, and should confirm before proceeding to the next step.
-
-1. What should this skill enable Claude to do?
-2. When should this skill trigger? (what user phrases/contexts)
-3. What's the expected output format?
-4. Should we set up test cases to verify the skill works? Skills with objectively verifiable outputs (file transforms, data extraction, code generation, fixed workflow steps) benefit from test cases. Skills with subjective outputs (writing style, art) often don't need them. Suggest the appropriate default based on the skill type, but let the user decide.
-
-### Interview and Research
-
-Proactively ask questions about edge cases, input/output formats, example files, success criteria, and dependencies. Wait to write test prompts until you've got this part ironed out.
-
-Check available MCPs - if useful for research (searching docs, finding similar skills, looking up best practices), research in parallel via subagents if available, otherwise inline. Come prepared with context to reduce burden on the user.
-
-### Write the SKILL.md
-
-Based on the user interview, fill in these components:
-
-- **name**: Skill identifier
-- **description**: When to trigger, what it does. This is the primary triggering mechanism - include both what the skill does AND specific contexts for when to use it. All "when to use" info goes here, not in the body. Note: currently Claude has a tendency to "undertrigger" skills -- to not use them when they'd be useful. To combat this, please make the skill descriptions a little bit "pushy". So for instance, instead of "How to build a simple fast dashboard to display internal Anthropic data.", you might write "How to build a simple fast dashboard to display internal Anthropic data. Make sure to use this skill whenever the user mentions dashboards, data visualization, internal metrics, or wants to display any kind of company data, even if they don't explicitly ask for a 'dashboard.'"
-- **compatibility**: Required tools, dependencies (optional, rarely needed)
-- **the rest of the skill :)**
-
-### Skill Writing Guide
-
-#### Anatomy of a Skill
+## Skill 结构
 
 ```
 skill-name/
-├── SKILL.md (required)
-│   ├── YAML frontmatter (name, description required)
-│   └── Markdown instructions
-└── Bundled Resources (optional)
-    ├── scripts/    - Executable code for deterministic/repetitive tasks
-    ├── references/ - Docs loaded into context as needed
-    └── assets/     - Files used in output (templates, icons, fonts)
+├── SKILL.md          —— 必填，frontmatter + Markdown 指令
+└── Bundled Resources  —— 可选
+    ├── scripts/      —— 可执行脚本（确定性/重复性任务）
+    ├── references/   —— 按需加载的参考文档
+    └── assets/       —— 输出用文件（模板、图标等）
 ```
 
-#### Progressive Disclosure
+### Frontmatter
 
-Skills use a three-level loading system:
-1. **Metadata** (name + description) - Always in context (~100 words)
-2. **SKILL.md body** - In context whenever skill triggers (<500 lines ideal)
-3. **Bundled resources** - As needed (unlimited, scripts can execute without loading)
+- `name` —— skill 标识符，必填
+- `description` —— 触发条件 + 功能描述，必填。这是 AI 是否调用此 skill 的核心依据
+- `disableModelInvocation` —— 设为 `true` 则仅手动触发，不自动匹配
 
-These word counts are approximate and you can feel free to go longer if needed.
+## 工作流
 
-**Key patterns:**
-- Keep SKILL.md under 500 lines; if you're approaching this limit, add an additional layer of hierarchy along with clear pointers about where the model using the skill should go next to follow up.
-- Reference files clearly from SKILL.md with guidance on when to read them
-- For large reference files (>300 lines), include a table of contents
+### 一、创建 Skill
 
-**Domain organization**: When a skill supports multiple domains/frameworks, organize by variant:
-```
-cloud-deploy/
-├── SKILL.md (workflow + selection)
-└── references/
-    ├── aws.md
-    ├── gcp.md
-    └── azure.md
-```
-Claude reads only the relevant reference file.
+#### 1. 捕获意图
 
-#### Principle of Lack of Surprise
+先搞清四个问题：
+1. 这个 skill 让 AI 完成什么？
+2. 什么情况下触发？（用户说了什么）
+3. 期望的输出格式是什么？
+4. 是否需要测试用例？——输出可客观验证（文件转换、数据提取、代码生成、固定步骤）则需要；输出主观（写作风格、视觉设计）通常不需要。
 
-This goes without saying, but skills must not contain malware, exploit code, or any content that could compromise system security. A skill's contents should not surprise the user in their intent if described. Don't go along with requests to create misleading skills or skills designed to facilitate unauthorized access, data exfiltration, or other malicious activities. Things like a "roleplay as an XYZ" are OK though.
+如果当前对话已包含完整工作流，直接从对话历史提取答案。
 
-#### Writing Patterns
+#### 2. 调研与访谈
 
-Prefer using the imperative form in instructions.
+主动询问边界情况、输入输出格式、示例文件、成功标准、依赖项。有可用 MCP 工具则并行调研，带着上下文来降低用户负担。
 
-**Defining output formats** - You can do it like this:
-```markdown
-## Report structure
-ALWAYS use this exact template:
-# [Title]
-## Executive summary
-## Key findings
-## Recommendations
-```
+#### 3. 撰写 SKILL.md
 
-**Examples pattern** - It's useful to include examples. You can format them like this (but if "Input" and "Output" are in the examples you might want to deviate a little):
-```markdown
-## Commit message format
-**Example 1:**
-Input: Added user authentication with JWT tokens
-Output: feat(auth): implement JWT-based authentication
-```
+**结构模式：** 核心原则 → 格式/结构 → 工作流 → 反模式。四段足矣，不另立章节。
 
-### Writing Style
+**容器选择：**
+- 禁止表格——用 `- key —— value` 列表代替，紧凑可扫
+- 禁止 `---` 分隔线——用标准 Markdown 标题分层
+- 禁止 `<Good>`/`<Bad>` 等 XML 标签——用 `✅`/`❌` 行内标记
+- 代码块仅用于三类场景：真实命令（bash/shell）、JSON 模板（schema/配置）、目录树（展示文件结构）。ASCII 流程图、示例对比、参数罗列一律用列表
 
-Try to explain to the model why things are important in lieu of heavy-handed musty MUSTs. Use theory of mind and try to make the skill general and not super-narrow to specific examples. Start by writing a draft and then look at it with fresh eyes and improve it.
+**语言密度：**
+- 用中文撰写正文，专业术语除外
+- 祈使句直给指令，不说「你应该」「建议你」
+- 每行承载独立语义，不写过渡句和铺垫段
+- 解释 why 而非堆 MUST——让 AI 理解意图后自主决策
 
-### Test Cases
+**篇幅控制：**
+- 总行数 ≤ 300，超限拆到 references/ 按需加载
+- 目标 ≤ 150 行——超过说明有冗余或该拆模块
+- 合并重复章节：相同语义的不同说法，只留一处
 
-After writing the skill draft, come up with 2-3 realistic test prompts — the kind of thing a real user would actually say. Share them with the user: [you don't have to use this exact language] "Here are a few test cases I'd like to try. Do these look right, or do you want to add more?" Then run them.
+**模板优先：**
+- 输出格式用模板而非描述——一个好模板省掉三段说明
+- 参数用 `- param —— 含义，必填/可选，默认值` 一行讲完
 
-Save test cases to `evals/evals.json`. Don't write assertions yet — just the prompts. You'll draft assertions in the next step while the runs are in progress.
+#### 4. 保存测试用例
+
+保存到 `evals/evals.json`：
 
 ```json
 {
@@ -124,176 +80,119 @@ Save test cases to `evals/evals.json`. Don't write assertions yet — just the p
   "evals": [
     {
       "id": 1,
-      "prompt": "User's task prompt",
-      "expected_output": "Description of expected result",
+      "prompt": "用户任务 prompt",
+      "expected_output": "期望结果描述",
       "files": []
     }
   ]
 }
 ```
 
-See `references/schemas.md` for the full schema (including the `assertions` field, which you'll add later).
+完整 schema 见 `references/schemas.md`。
 
-## Running and evaluating test cases
+### 二、评估与测试
 
-This section is one continuous sequence — don't stop partway through. Do NOT use `/skill-test` or any other testing skill.
+在 `<skill-name>-workspace/` 下按迭代组织：`iteration-N/eval-M/`。以下五步连续执行，中途不停。
 
-Put results in `<skill-name>-workspace/` as a sibling to the skill directory. Within the workspace, organize results by iteration (`iteration-1/`, `iteration-2/`, etc.) and within that, each test case gets a directory (`eval-0/`, `eval-1/`, etc.). Don't create all of this upfront — just create directories as you go.
+#### Step 1：并行起跑
 
-### Step 1: Spawn all runs (with-skill AND baseline) in the same turn
+每个测试用例同时 spawn 两个 subagent：
+- **with_skill** —— 带 skill 执行，输出到 `with_skill/outputs/`
+- **baseline** —— 新建 skill 则不带 skill（`without_skill/`）；改进已有 skill 则用旧版快照（`old_skill/`）
 
-For each test case, spawn two subagents in the same turn — one with the skill, one without.
-
-**With-skill run:**
-
-```
-Execute this task:
-- Skill path: <path-to-skill>
-- Task: <eval prompt>
-- Input files: <eval files if any, or "none">
-- Save outputs to: <workspace>/iteration-<N>/eval-<ID>/with_skill/outputs/
-- Outputs to save: <what the user cares about>
-```
-
-**Baseline run** (same prompt):
-- **Creating a new skill**: no skill at all, save to `without_skill/outputs/`.
-- **Improving an existing skill**: snapshot the skill, point baseline at snapshot, save to `old_skill/outputs/`.
-
-Write `eval_metadata.json` for each test case:
+为每个用例写 `eval_metadata.json`：
 ```json
-{
-  "eval_id": 0,
-  "eval_name": "descriptive-name-here",
-  "prompt": "The user's task prompt",
-  "assertions": []
-}
+{"eval_id": 0, "eval_name": "描述名", "prompt": "任务 prompt", "assertions": []}
 ```
 
-### Step 2: While runs are in progress, draft assertions
+#### Step 2：起草断言
 
-Draft quantitative assertions for each test case and explain them to the user. Update `eval_metadata.json` and `evals/evals.json`.
+subagent 跑起来后，为每个用例起草量化断言，更新 `eval_metadata.json` 和 `evals/evals.json`。
 
-### Step 3: As runs complete, capture timing data
+#### Step 3：记录耗时
 
-Save `total_tokens` and `duration_ms` from each notification to `timing.json`:
-```json
-{
-  "total_tokens": 84852,
-  "duration_ms": 23332,
-  "total_duration_seconds": 23.3
-}
-```
+每个 run 完成后，保存 `total_tokens` 和 `duration_ms` 到 `timing.json`。
 
-### Step 4: Grade, aggregate, and launch the viewer
+#### Step 4：打分、聚合、启动查看器
 
-1. **Grade each run** — spawn a grader subagent reading `agents/grader.md`. Save to `grading.json` with fields `text`, `passed`, `evidence`.
-2. **Aggregate into benchmark**:
+1. **打分** —— spawn grader subagent（见 `agents/grader.md`），输出 `grading.json`：`{text, passed, evidence}`
+2. **聚合**：
    ```bash
    python -m scripts.aggregate_benchmark <workspace>/iteration-N --skill-name <name>
    ```
-3. **Do an analyst pass** — read the benchmark and surface hidden patterns (see `agents/analyzer.md`).
-4. **Launch the viewer**:
+3. **分析** —— 读 benchmark 发现隐藏模式（见 `agents/analyzer.md`）
+4. **启动查看器**：
    ```bash
    nohup python <skill-creator-path>/eval-viewer/generate_review.py \
      <workspace>/iteration-N \
      --skill-name "my-skill" \
      --benchmark <workspace>/iteration-N/benchmark.json \
      > /dev/null 2>&1 &
-   VIEWER_PID=$!
    ```
-   For iteration 2+, pass `--previous-workspace`. Headless: use `--static`.
-5. **Tell the user** the viewer is open for review.
+   迭代 2+ 加 `--previous-workspace`。无头模式加 `--static`。
 
-### Step 5: Read the feedback
+#### Step 5：读取反馈
 
-Read `feedback.json`:
-```json
-{
-  "reviews": [
-    {"run_id": "eval-0-with_skill", "feedback": "the chart is missing axis labels", "timestamp": "..."},
-    {"run_id": "eval-1-with_skill", "feedback": "", "timestamp": "..."},
-    {"run_id": "eval-2-with_skill", "feedback": "perfect, love this", "timestamp": "..."}
-  ],
-  "status": "complete"
-}
-```
-Empty feedback = fine. Kill the viewer: `kill $VIEWER_PID 2>/dev/null`
+读 `feedback.json`。空反馈 = 通过。杀掉查看器进程。
 
----
+### 三、迭代改进
 
-## Improving the skill
+改进原则：
+- 从反馈中提炼通用模式，不过拟合具体测试
+- 读 transcript 找冗余，删掉没用的部分
+- 解释原因（why），让 AI 自主判断而非盲从
+- 多处重复的辅助代码 → 提取到 `scripts/`
 
-This is the heart of the loop. You've run the test cases, the user has reviewed the results, and now you need to make the skill better based on their feedback.
+迭代循环：
+1. 应用改进到 skill
+2. 全量重跑到新 `iteration-N+1/`
+3. 启动查看器，传入 `--previous-workspace`
+4. 等用户审阅完成
+5. 读反馈，继续改进
 
-### How to think about improvements
+停止条件：用户满意 / 反馈全空 / 无明显进展。
 
-1. **Generalize from the feedback.** Don't overfit to test examples — generalize patterns so the skill works on unseen prompts.
-2. **Keep the prompt lean.** Remove parts that aren't pulling their weight; read transcripts to find wasted effort.
-3. **Explain the why.** Explain reasoning behind instructions so the model acts independently rather than blindly following rigid rules.
-4. **Look for repeated work across test cases.** If multiple test runs independently wrote the same helper, bundle it in `scripts/`.
+### 四、优化触发描述
 
-### The iteration loop
+description 决定 AI 是否调用 skill。创建或改进后，主动提议优化。
 
-After improving the skill:
+#### Step 1：生成触发评估集
 
-1. Apply your improvements to the skill
-2. Rerun all test cases into a new `iteration-<N+1>/` directory, including baseline runs. If you're creating a new skill, the baseline is always `without_skill` (no skill) — that stays the same across iterations. If you're improving an existing skill, use your judgment on what makes sense as the baseline: the original version the user came in with, or the previous iteration.
-3. Launch the reviewer with `--previous-workspace` pointing at the previous iteration
-4. Wait for the user to review and tell you they're done
-5. Read the new feedback, improve again, repeat
+生成 20 条查询——should-trigger（8-10 条，不同措辞）和 should-not-trigger（8-10 条，近义词干扰）。保存为 JSON：`{query, should_trigger}`。
 
-Keep going until:
-- The user says they're happy
-- The feedback is all empty (everything looks good)
-- You're not making meaningful progress
+#### Step 2：用户审阅
 
----
+用 `assets/eval_review.html` 模板展示，用户编辑后导出为 `eval_set.json`。
 
-## Description Optimization
+#### Step 3：运行优化
 
-The description field determines whether Claude invokes a skill. After creating or improving a skill, offer to optimize it for better triggering accuracy.
-
-### Step 1: Generate trigger eval queries
-
-Create 20 eval queries — mix of should-trigger and should-not-trigger. Save as JSON with `query` and `should_trigger` fields. Queries should be realistic, specific, and detailed — edge cases, not clear-cut. For should-trigger (8-10), cover different phrasings. For should-not-trigger (8-10), focus on near-misses.
-
-### Step 2: Review with user
-
-Present the eval set using the HTML template from `assets/eval_review.html`. Replace `__EVAL_DATA_PLACEHOLDER__`, `__SKILL_NAME_PLACEHOLDER__`, `__SKILL_DESCRIPTION_PLACEHOLDER__`. Write to a temp file and open for user editing. User exports to `~/Downloads/eval_set.json`.
-
-### Step 3: Run the optimization loop
-
-Save the eval set to the workspace, then run:
 ```bash
 python -m scripts.run_loop \
-  --eval-set <path-to-trigger-eval.json> \
-  --skill-path <path-to-skill> \
-  --model <model-id-powering-this-session> \
+  --eval-set <eval_set.json> \
+  --skill-path <skill-path> \
+  --model <当前模型> \
   --max-iterations 5 \
   --verbose
 ```
-Periodically tail the output to update the user on scores.
 
-### How skill triggering works
+注：简单一步式查询不会触发 skill，即使 description 完美——只有多步骤或专业查询才可靠触发。
 
-Claude decides to consult a skill based on its name + description. Only multi-step or specialized queries reliably trigger — simple one-step queries won't trigger even with a perfect description.
+#### Step 4：应用结果
 
-### Step 4: Apply the result
+取 `best_description`，更新 SKILL.md frontmatter。展示 before/after 和分数。
 
-Take `best_description` and update the SKILL.md frontmatter. Show before/after and scores.
+## 参考文件
 
----
+- `agents/grader.md` —— 断言评分
+- `agents/comparator.md` —— 盲测 A/B 对比
+- `agents/analyzer.md` —— 分析输赢原因
+- `references/schemas.md` —— evals.json / grading.json 等 JSON 结构
 
-## Reference files
+## 反模式
 
-The agents/ directory contains instructions for specialized subagents. Read them when you need to spawn the relevant subagent.
-
-- `agents/grader.md` — How to evaluate assertions against outputs
-- `agents/comparator.md` — How to do blind A/B comparison between two outputs
-- `agents/analyzer.md` — How to analyze why one version beat another
-
-The references/ directory has additional documentation:
-- `references/schemas.md` — JSON structures for evals.json, grading.json, etc.
-
----
-
+- 把 skill 写成给人类看的文档——目标是 AI 可执行
+- description 写「做什么」但不写「何时触发」→ 从不被调用
+- 为单个示例过度优化 → 通用场景失效
+- 正文塞满参考信息不拆模块 → 超 300 行，context 爆炸
+- 不看 transcript 就改——盲改
+- description 优化后不验证——改坏了不知道
