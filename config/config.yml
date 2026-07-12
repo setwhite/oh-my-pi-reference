@@ -1,14 +1,14 @@
 modelRoles: 
-  slow: opencode-go/deepseek-v4-pro:max
-  smol: opencode-go/deepseek-v4-flash:max
   vision: opencode-go/qwen3.7-plus:medium
   plan: opencode-go/glm-5.2:max
-  designer: opencode-go/kimi-k2.7-code:max
   task: opencode-go/deepseek-v4-flash:max
-  commit: opencode-go/deepseek-v4-flash:max
-  default: opencode-go/deepseek-v4-pro:max
-  advisor: opencode-go/glm-5.2:max
   tiny: opencode-go/deepseek-v4-flash:max
+  default: opencode-go/deepseek-v4-pro:max
+  slow: opencode-go/deepseek-v4-pro:max
+  commit: opencode-go/deepseek-v4-flash:max
+  smol: opencode-go/deepseek-v4-flash:max
+  designer: opencode-go/kimi-k2.7-code:xhigh
+  advisor: opencode-go/glm-5.2:max
 theme: 
   dark: dark-monokai
 task: 
