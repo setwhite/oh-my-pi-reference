@@ -129,3 +129,7 @@ checkpoint:
   enabled: false
 recap: 
   enabled: false
+cycleOrder: 
+  - default
+  - smol
+  - slow
