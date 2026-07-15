@@ -19,7 +19,7 @@ task:
     commits: generic
     merge: patch
   enableLsp: true
-hideThinkingBlock: true
+hideThinkingBlock: false
 contextPromotion: 
   enabled: false
 branchSummary: 
@@ -133,3 +133,7 @@ cycleOrder:
   - default
   - smol
   - slow
+launch: 
+  enabled: false
+generate_image: 
+  enabled: false
