@@ -19,13 +19,14 @@ task:
     commits: generic
     merge: patch
   enableLsp: true
-hideThinkingBlock: false
+hideThinkingBlock: true
 contextPromotion: 
   enabled: false
 branchSummary: 
   enabled: true
 tools: 
   approvalMode: yolo
+  xdev: true
 collapseChangelog: true
 commands: 
   enableClaudeUser: false
@@ -51,7 +52,7 @@ display:
 async: 
   enabled: true
 mcp: 
-  discoveryMode: false
+  {}
 providers: 
   webSearch: auto
   image: auto
@@ -111,7 +112,7 @@ exa:
   enableWebsets: true
   enableResearcher: true
   enabled: true
-readLineNumbers: true
+readLineNumbers: false
 personality: none
 magicKeywords: 
   enabled: false
@@ -133,7 +134,9 @@ cycleOrder:
   - default
   - smol
   - slow
-launch: 
-  enabled: false
 generate_image: 
   enabled: false
+launch: 
+  enabled: false
+astGrep: 
+  enabled: true
