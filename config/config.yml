@@ -19,14 +19,14 @@ task:
     commits: generic
     merge: patch
   enableLsp: true
-hideThinkingBlock: true
+hideThinkingBlock: false
 contextPromotion: 
   enabled: false
 branchSummary: 
   enabled: true
 tools: 
   approvalMode: yolo
-  xdev: true
+  xdev: false
 collapseChangelog: true
 commands: 
   enableClaudeUser: false
@@ -98,6 +98,7 @@ memory:
 edit: 
   mode: hashline
   fuzzyMatch: true
+  enforceSeenLines: true
 lsp: 
   enabled: true
   formatOnWrite: true
