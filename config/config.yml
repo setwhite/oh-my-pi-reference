@@ -19,7 +19,7 @@ task:
     commits: generic
     merge: patch
   enableLsp: true
-hideThinkingBlock: false
+hideThinkingBlock: true
 contextPromotion: 
   enabled: false
 branchSummary: 
