@@ -16,3 +16,4 @@ disableModelInvocation: true
 - 字体使用系统栈，不加载 web font
 - 设计服务于阅读，不为炫技。无渐变、无 box-shadow 堆叠、无 backdrop-filter
 - 响应式：移动端可读
+- 引用标注可点击，脚注条目提供原始链接
