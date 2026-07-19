@@ -1,7 +1,7 @@
 ---
 name: hackernews-search
 disableModelInvocation: true
-description: 搜索 Hacker News——通过 Algolia API 搜索内容，通过 Firebase API 获取首页热门。返回标题、链接、评分、评论数等结构化结果。
+description: 搜索 Hacker News 帖子与热门。
 ---
 
 # Hacker News 搜索
@@ -12,7 +12,7 @@ description: 搜索 Hacker News——通过 Algolia API 搜索内容，通过 Fi
 - **搜索** —— `read` 调 Algolia API，单次 HTTP GET，零依赖
 - **Feed** —— Python 脚本调 Firebase，拿首页热门/最新/最高分
 
-脚本也支持搜索模式，底层同样调 Algolia，提供摘要清洗和结构化输出。快速查分数/评论数用 `read`，需要正文摘要用脚本。
+搜索用 `read` 调 Algolia API 即可；Feed 模式用下面的 Python 脚本。
 
 ## 搜索：`read` 调 Algolia API
 
@@ -58,17 +58,6 @@ python "<path>" '{"mode":"best","count":10}'   # 最高分
 - `mode` —— `top` / `new` / `best`，必填
 - `count` —— 1–30，默认 10，可选
 
-### 搜索模式（脚本）
-
-```bash
-python "<path>" '{"query":"rust async","count":5}'              # 搜帖子
-python "<path>" '{"query":"python","count":5,"type":"comment"}' # 评论
-python "<path>" '{"query":"linux kernel","count":5,"type":"all"}'# 全部
-```
-
-- `query` —— 搜索关键词，必填
-- `count` —— 1–30，默认 10，可选
-- `type` —— `story`（默认）/ `comment` / `all`，映射到 Algolia `tags`，可选
 
 ## 失败回退
 

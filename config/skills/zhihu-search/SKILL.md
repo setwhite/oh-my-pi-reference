@@ -1,10 +1,7 @@
 ---
 name: zhihu-search
-version: 1.0.3
 disableModelInvocation: true
-description: 搜索知乎站内内容，返回结构化结果（标题、链接、作者、摘要等）。
-homepage: ../../docs/zhihu_search.md
-metadata: {"openclaw":{"emoji":"🔍","requires":{"bins":["python"]}}}
+description: 搜索知乎站内内容。
 ---
 
 # Zhihu Search Skill

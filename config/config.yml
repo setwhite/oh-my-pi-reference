@@ -16,9 +16,11 @@ task:
   maxConcurrency: 32
   isolation: 
     mode: rcopy
-    commits: generic
+    commits: ai
     merge: patch
   enableLsp: true
+  eager: default
+  batch: true
 hideThinkingBlock: true
 contextPromotion: 
   enabled: false
@@ -27,6 +29,7 @@ branchSummary:
 tools: 
   approvalMode: yolo
   xdev: false
+  intentTracing: true
 collapseChangelog: true
 commands: 
   enableClaudeUser: false
@@ -37,9 +40,10 @@ browser:
   headless: true
   screenshotDir: ~/Desktop
 compaction: 
-  handoffSaveToDisk: true
+  handoffSaveToDisk: false
   strategy: handoff
   remoteEnabled: true
+  remoteStreamingV2Enabled: true
 inspect_image: 
   enabled: false
 github: 
@@ -52,14 +56,15 @@ display:
 async: 
   enabled: true
 mcp: 
-  {}
+  enableProjectConfig: false
 providers: 
   webSearch: auto
   image: auto
   tinyModelDevice: default
   tinyModel: online
   fetch: auto
-  kimiApiFormat: anthropic
+  kimiApiFormat: auto
+  tts: auto
 provider: 
   appendOnlyContext: auto
 disabledExtensions: 
@@ -71,19 +76,23 @@ statusLine:
   sessionAccent: false
   transparent: true
   showHookStatus: true
+  compactThinkingLevel: false
 tui: 
   textSizing: false
   hyperlinks: auto
   tight: true
   renderMermaid: true
+  scrollbackRebuild: false
 web_search: 
   enabled: true
 defaultThinkingLevel: max
 retry: 
-  modelFallback: true
+  modelFallback: false
+  maxRetries: 3
+  fallbackRevertPolicy: cooldown-expiry
 steeringMode: one-at-a-time
 treeFilterMode: default
-autocompleteMaxVisible: 5
+autocompleteMaxVisible: 10
 ask: 
   timeout: 0
 startup: 
@@ -93,6 +102,8 @@ marketplace:
   autoUpdate: notify
 ttsr: 
   builtinRules: true
+  contextMode: discard
+  enabled: true
 memory: 
   backend: "off"
 edit: 
@@ -141,3 +152,12 @@ launch:
   enabled: false
 astGrep: 
   enabled: true
+terminal: 
+  showProgress: false
+emojiAutocomplete: false
+includeModelInPrompt: false
+textVerbosity: medium
+inlineToolDescriptors: "off"
+modelRoleStorage: global
+autolearn: 
+  enabled: false
